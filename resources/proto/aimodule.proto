@@ -1,0 +1,69 @@
+package messages;
+option java_package = "org.bwapi.proxy.messages";
+option java_outer_classname = "Messages";
+
+import "unit.proto";
+import "types.proto";
+import "terrain.proto";
+import "command.proto";
+import "draw.proto";
+
+message PlayerText {
+  required int32 player = 1;
+  required string text = 2;
+}
+
+message FrameMessage {
+  required int32 frameCount = 1;
+  required int32 mouseX = 27;
+  required int32 mouseY = 28;
+  required int32 screenX = 4;
+  required int32 screenY = 5;
+
+  repeated Unit units = 6;
+  repeated Bullet bullets = 3;
+  repeated Player players = 20;
+  repeated UnitId createdUnits = 7;
+  repeated UnitId destroyedUnits = 8;
+  repeated UnitId morphedUnits = 9;
+  repeated UnitId shownUnits = 10;
+  repeated UnitId hiddenUnits = 11;
+  repeated UnitId renegadedUnits = 12;
+  repeated int32 leftplayers = 21;
+  repeated PlayerText receivedTexts = 22;
+  repeated UnitId selectedUnits = 24;
+
+  repeated string sentText = 13;
+  optional Position nukeDetect = 14;
+  required bool paused = 15;
+  required bool replay = 16;
+  required bool multiplayer = 17;
+  optional bool gameover = 23;
+  optional bool isWinner = 25;
+
+  required Position screenPosition = 26;
+  required int32 latency = 29;
+
+  required DynamicTerrainInfo dynamicTerrainInfo = 18;
+  optional StaticTerrainInfo terrainInfo = 19;
+}
+
+enum Flag {
+  CompleteMapInformation = 0;
+  UserInput = 1;
+}
+
+message FrameCommands {
+  repeated Command commands = 1; 
+  optional sint32 gameSpeed = 2;
+  repeated string sendText = 3;
+  repeated string printf = 4;
+  repeated Flag flags = 5;
+  repeated DrawCommand drawCommands = 6;
+  optional Position screenPosition = 7;
+  optional string botName = 8;
+  optional string botCode = 9;
+}
+
+
+

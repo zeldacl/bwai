@@ -1,0 +1,63 @@
+package messages;
+option java_package = "org.bwapi.proxy.messages";
+option java_outer_classname = "Commands";
+
+import "unit.proto";
+import "types.proto";
+
+enum CommandType {
+  none = 1;
+  attackMove = 2;
+  attackUnit = 3;
+  rightClick = 4;
+  rightClickUnit = 5;
+  train = 6;
+  build = 7;
+  buildAddon = 8;
+  research = 9;
+  upgrade = 10; 
+  stop = 11; 
+  holdPosition = 12; 
+  patrol = 13;
+  follow = 14; 
+  setRallyPosition = 15; 
+  setRallyUnit = 16; 
+  repair = 17; 
+  morph = 18; 
+  burrow = 19; 
+  unburrow = 20; 
+  siege = 21; 
+  unsiege = 22; 
+  cloak = 23; 
+  decloak = 24; 
+  lift = 25; 
+  land = 26;
+  load = 27;
+  unload = 28;
+  unloadAll = 29; 
+  unloadAllPosition = 30; 
+  cancelConstruction = 31; 
+  haltConstruction = 32; 
+  cancelMorph = 33; 
+  cancelTrain = 34; 
+  cancelTrainSlot = 35;
+  cancelAddon = 36; 
+  cancelResearch = 37; 
+  cancelUpgrade = 38; 
+  useTech = 39; 
+  useTechPosition = 40; 
+  useTechTarget = 41; 		
+}
+
+message Command {
+  required CommandType type = 1;
+  required UnitId self = 2;
+  optional Position pos = 3;
+  optional TilePosition tilePos = 4;
+  optional UnitId target = 5;
+  optional UnitType unitType = 6;
+  optional TechType techType = 7;
+  optional UpgradeType upgradeType = 8;
+  optional int32 slot = 9;
+}
+

@@ -1,0 +1,73 @@
+package messages;
+option java_package = "org.bwapi.proxy.messages";
+option java_outer_classname = "TerrainMessages";
+
+import "types.proto";
+import "unit.proto";
+
+message DynamicTerrainInfo {
+  // bit masks for walkable terrain
+  repeated fixed32 isVisible = 3;
+  repeated fixed32 isExplored = 4;
+  repeated fixed32 hasCreep = 5;
+}
+
+message StaticTerrainInfo {
+  repeated Region regions = 1;
+  repeated Chokepoint chokepoints = 2;
+  repeated BaseLocation baseLocations = 3; 
+  repeated int32 startLocations = 4; 
+  repeated Polygon unwalkablePolygon = 5; 
+
+  //BWAPI::Position getNearestUnwalkablePosition(BWAPI::Position position);
+  //BaseLocation* getStartLocation(BWAPI::Player* player);
+  //BaseLocation* getNearestBaseLocation(BWAPI::TilePosition position);
+}
+
+message BaseLocation {
+  required int32 id = 12;
+  required Position position = 1;
+  required TilePosition tilePosition = 13;
+
+  required int32 region = 2;
+
+  required int32 numMinerals =3;
+  required int32 numGas =4;
+
+  repeated UnitId minerals = 5;
+  repeated UnitId staticMinerals =6;
+  repeated UnitId geysers = 7;
+
+  required bool island = 8;
+  required bool mineralOnly = 10;
+  required bool startLocation = 11; 
+}
+
+message Chokepoint {
+  required int32 id = 7;
+  required int32 region1 = 1;
+  required int32 region2 = 2;
+
+  required Position side1 = 3;
+  required Position side2 = 4;
+
+  required Position center = 5;
+  required double width = 6;
+}
+
+message Polygon {
+    repeated Position vertices = 1;
+    required double area = 2;
+    required double perimeter = 3;
+    required Position center = 4;
+    repeated Polygon holes = 5;
+    //bool isInside(BWAPI::Position p) const;
+    //BWAPI::Position getNearestPoint(BWAPI::Position p) const;
+};
+
+message Region {
+  required int32 id = 1;
+  required Polygon polygon = 2;
+  repeated int32 chokepoints = 3;
+  repeated int32 baseLocations = 4;
+}

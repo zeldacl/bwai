@@ -1,0 +1,36 @@
+package messages;
+option java_package = "org.bwapi.proxy.messages";
+option java_outer_classname = "DrawCommands";
+
+enum ShapeType {
+  setTextSize = 1;
+  text = 2;
+  box = 3;
+  circle = 4;
+  ellipse = 5;
+  dot = 6;
+  line = 7;
+  triangle = 8;
+}
+
+enum CoordinateType {
+  screen = 1;
+  map = 2;
+  mouse = 3;
+}
+
+message Color {
+  optional int32 id = 1;
+  optional int32 red = 2;
+  optional int32 green = 3;
+  optional int32 blue = 4;
+}
+
+message DrawCommand {
+  required ShapeType shape = 1;
+  optional CoordinateType coordinateType = 2;
+  repeated int32 coordinates = 3;
+  optional Color color = 4;
+  optional bool isSolid = 5;
+  optional string text = 6;
+}

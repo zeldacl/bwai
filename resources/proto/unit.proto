@@ -1,0 +1,495 @@
+package messages;
+option java_package = "org.bwapi.proxy.messages";
+option java_outer_classname = "GameMessages";
+
+import "types.proto";
+import "draw.proto";
+
+message UnitId {
+  required int32 id = 1;
+}
+
+message UnitType {
+  required int32 id = 1;
+}
+
+enum UnitSizeType {
+  Independent = 0;
+  Small = 1;
+  Medium = 2;
+  Large = 3;
+  NoneSize = 4;
+  UnknownSize = 5;
+}
+
+
+message UnitTypeData {
+  required int32 id = 1;
+  required string name = 2;
+  required string sublabel = 3;
+  required Race race = 4;
+
+  required UnitType whatBuildsType = 5;
+  required int32 whatBuildsNumber = 6;
+  repeated UnitTypeIntPair requiredUnits = 7;
+  required TechType requiredTech = 8;
+  repeated TechType abilities = 9;
+  repeated UpgradeType upgrades = 10;
+  required UpgradeType armorUpgrade = 11;
+
+  required int32 maxHitPoints = 12;
+  required int32 maxShields = 13;
+  required int32 maxEnergy = 14;
+  required int32 armor = 15;
+
+  required int32 mineralPrice = 16;
+  required int32 gasPrice = 17;
+  required int32 buildTime = 18;
+
+  required int32 supplyRequired = 19;
+  required int32 supplyProvided = 20;
+  required int32 spaceRequired = 21;
+  required int32 spaceProvided = 66;
+  required int32 buildScore = 22;
+  required int32 destroyScore = 23;
+
+  required UnitSizeType size = 24;
+  required int32 tileWidth = 25;
+  required int32 tileHeight = 26;
+
+  required int32 dimensionLeft = 27;
+  required int32 dimensionUp = 28;
+  required int32 dimensionRight = 29;
+  required int32 dimensionDown = 30;
+
+  required int32 seekRange = 31;
+  required int32 sightRange = 32;
+  required WeaponType groundWeapon = 33;
+  required int32 maxGroundHits = 34;
+  required WeaponType airWeapon = 35;
+  required int32 maxAirHits = 36;
+
+  required double topSpeed = 37;
+  required int32 acceleration = 38;
+  required int32 haltDistance = 39;
+  required int32 turnRadius = 40;
+
+  required bool canProduce = 41;
+  required bool canAttack = 42;
+  required bool canMove = 43;
+  required bool isFlyer = 44;
+  required bool regeneratesHP = 45;
+  required bool isSpellcaster = 46;
+  required bool hasPermanentCloak = 47;
+  required bool isInvincible = 48;
+  required bool isOrganic = 49;
+  required bool isMechanical = 50;
+  required bool isRobotic = 51;
+  required bool isDetector = 52;
+  required bool isResourceContainer = 53;
+  required bool isResourceDepot = 54;
+  required bool isRefinery = 55;
+  required bool isWorker = 56;
+  required bool requiresPsi = 57;
+  required bool requiresCreep = 58;
+  required bool isTwoUnitsInOneEgg = 59;
+  required bool isBurrowable = 60;
+  required bool isCloakable = 61;
+  required bool isBuilding = 62;
+  required bool isAddon = 63;
+  required bool isFlyingBuilding = 64;
+  required bool isNeutral = 65;
+}
+
+message UpgradeTypeData {
+  required int32 id = 1;
+  required string name = 2;
+  required Race race = 3;
+  required int32 mineralPriceBase = 4;
+  required int32 mineralPriceFactor = 5;
+  required int32 gasPriceBase = 6;
+  required int32 gasPriceFactor = 7;
+  required int32 upgradeTimeBase = 8;
+  required int32 upgradeTimeFactor = 9;
+  required int32 maxRepeats = 10;
+  required UnitType whatUpgrades = 11;
+  repeated UnitType whatUses = 12;
+}
+
+
+message Unit {
+  required UnitId theID = 1;
+  required int32 player  = 2;
+  required UnitType type  = 3;
+  required UnitType initialType  = 4;
+  required int32 hitPoints  = 5;
+  required int32 initialHitPoints  = 6;
+  required int32 shields  = 7;
+  required int32 energy  = 8;
+  required int32 resources  = 9;
+  required int32 resourceGroup  = 103;
+  required int32 initialResources  = 10;
+  required int32 killCount  = 11;
+  required int32 groundWeaponCooldown  = 12;
+  required int32 airWeaponCooldown  = 13;
+  required int32 spellCooldown  = 14;
+  required int32 defenseMatrixPoints  = 15;
+
+  required int32 defenseMatrixTimer  = 16;
+  required int32 ensnareTimer  = 17;
+  required int32 irradiateTimer  = 18;
+  required int32 lockdownTimer  = 19;
+  required int32 maelstromTimer  = 20;
+  required int32 plagueTimer  = 21;
+  required int32 removeTimer  = 22;
+  required int32 stasisTimer  = 23;
+  required int32 stimTimer  = 24;
+
+  required Position position  = 25;
+  required Position initialPosition  = 26;
+  required TilePosition tilePosition  = 27;
+  required TilePosition initialTilePosition  = 28;
+  required double angle  = 30;
+  required double velocityX  = 31;
+  required double velocityY  = 32;
+
+  optional UnitId target  = 33 ;
+  required Position targetPosition  = 34;
+  required int32 order  = 35;
+  optional UnitId orderTarget  = 36 ;
+  required int32 orderTimer  = 37;
+  required int32 secondaryOrder  = 38;
+  optional UnitId buildUnit  = 39 ;
+  required int32 remainingBuildTime  = 40;
+  required int32 remainingTrainTime  = 41;
+  repeated UnitType trainingQueue  = 43;
+  optional UnitId transport  = 44;
+  repeated UnitId loadedUnits  = 45;
+  required int32 interceptorCount  = 46;
+  required int32 scarabCount  = 47;
+  required int32 spiderMineCount  = 48;
+  required int32 tech  = 49;
+  required int32 upgrade  = 50;
+  required int32 remainingResearchTime  = 51;
+  required int32 remainingUpgradeTime  = 52;
+  required Position rallyPosition  = 53;
+  optional UnitId rallyUnit  = 54;
+  optional UnitId addon  = 55;
+  optional UnitId carrier = 42;
+  repeated UnitId interceptors = 101;
+  optional UnitId nydusExit = 105;
+
+  required bool exists  = 56;
+  required bool hasNuke = 100;
+  required bool accelerating  = 57;
+  required bool beingConstructed = 58;
+  required bool beingHealed  = 59;
+  required bool blind  = 60;
+  required bool braking  = 61;
+  required bool burrowed  = 62;
+  required bool carryingGas  = 63;
+  required bool carryingMinerals  = 64;
+  required bool cloaked  = 65;
+  required bool completed  = 66;
+  required bool constructing = 67;
+  required bool defenseMatrixed  = 68;
+  required bool ensnared  = 69;
+  required bool following  = 70;
+  required bool gatheringGas  = 71;
+  required bool gatheringMinerals  = 72;
+  required bool hallucination  = 73;
+  required bool idle  = 74;
+  required bool irradiated  = 75;
+  required bool lifted  = 76;
+  required bool loaded  = 77;
+  required bool lockedDown  = 78;
+  required bool maelstrommed  = 79;
+  required bool morphing  = 80;
+  required bool moving  = 81;
+  required bool parasited  = 82;
+  required bool patrolling  = 83;
+  required bool plagued  = 84;
+  required bool repairing  = 85;
+  required bool researching  = 86;
+  required bool selected  = 87;
+  required bool sieged  = 88;
+  required bool startingAttack  = 89;
+  required bool stasised  = 90;
+  required bool stimmed  = 91;
+  required bool training  = 92;
+  required bool underStorm  = 93;
+  required bool underAttack  = 111;
+  required bool underDarkSwarm  = 112;
+  required bool unpowered  = 94;
+  required bool upgrading  = 95;
+  required bool visible  = 96;
+  required bool beingGathered  = 97;
+
+  repeated UnitId larvae = 99;
+  optional UnitId hatchery = 104;
+  optional UnitType buildType = 110;
+  required bool detected = 106;
+  required bool attacking = 107;
+  required bool attackFrame = 108;
+  required bool stuck = 109;
+}
+
+enum Race {
+  Zerg = 0;
+  Terran = 1;
+  Protoss = 2;
+  Random = 3;
+  Other = 4;
+  None = 5;
+  Unknown = 6;
+}
+
+message RaceData {
+  required Race id = 1;
+  required string name = 2;
+  required UnitType worker = 3;
+  required UnitType center = 4;
+  required UnitType refinery = 5;
+  required UnitType transport = 6;
+  required UnitType supplyProvider = 7;
+}
+
+enum PlayerStance {
+  Neutral = 1;
+  Ally = 2;
+  Enemy = 3;
+}
+
+
+message PlayerStatus {
+  required int32 id = 1;
+  required PlayerStance stance = 2;
+  required int32 ownerId = 3;
+}
+
+message UnitTypeIntPair {
+  required UnitType type = 1;
+  required int32 count = 2;
+}
+
+
+message Player {
+  required int32 id  = 1;
+  required string name = 2;
+  repeated UnitId units = 3;
+  required Race race = 4;
+  //required PlayerType playerType()  = 0;
+  //required Force* force  = 0;
+  repeated PlayerStatus stances = 5;
+  required bool neutral = 6;
+  required TilePosition startLocation = 7;
+  required bool leftGame  = 8;
+
+  required int32 minerals  = 9;
+  required int32 gas  = 10;
+  required int32 cumulativeMinerals  = 11;
+  required int32 cumulativeGas  = 12;
+
+  required int32 supplyTotal  = 13;
+  required int32 supplyUsed  = 14;
+
+  repeated UnitTypeIntPair allUnitCount  = 15;
+  repeated UnitTypeIntPair completedUnitCount  = 16;
+  repeated UnitTypeIntPair incompleteUnitCount = 17;
+  repeated UnitTypeIntPair deadUnitCount  = 18;
+  repeated UnitTypeIntPair killedUnitCount = 19;
+
+  repeated UpgradeLevel upgradeLevels = 20;
+  repeated TechType researchedTechs = 21;
+  repeated TechType researching = 22;
+  repeated UpgradeType upgrading = 23;
+
+  optional bool self = 24 [ default = false];
+  required bool victorious = 25;
+  required bool defeated = 26;
+}
+
+
+message UpgradeLevel {
+  required UpgradeType type = 1;
+  required int32 level = 2;
+}
+
+message TechType {
+  required int32 id = 1;
+}
+
+message UpgradeType {
+  required int32 id = 1;
+}
+
+message TechTypeData {
+  required int32 id = 1;
+  required string name = 2;
+  required Race race = 3;
+  required int32 mineralPrice = 4;
+  required int32 gasPrice = 5;
+  required int32 researchTime = 6; 
+  required int32 energyUsed = 7;
+  required UnitType whatResearches = 8;
+  required WeaponType weapon = 9;
+  repeated UnitType whatUses = 10;
+}
+
+message WeaponType {
+  required int32 id = 1;
+}
+
+enum DamageType {
+  IndependentDamage = 0;
+  Explosive = 1;
+  Concussive = 2;
+  Normal = 3;
+  IgnoreArmor = 4;
+  NoneDamage = 5;
+  UnknownDamage = 6;
+}
+
+enum ExplosionType {
+  ExplosionNone = 0;
+  ExplosionNormal = 1;
+  Radial_Splash = 2;
+  Enemy_Splash = 3;
+  Lockdown = 4;
+  Nuclear_Missile = 5;
+  Parasite = 6;
+  Broodlings = 7;
+  EMP_Shockwave = 8;
+  Irradiate = 9;
+  Ensnare = 10;
+  Plague = 11;
+  Stasis_Field = 12;
+  Dark_Swarm = 13;
+  Consume = 14;
+  Yamato_Gun = 15;
+  Restoration = 16;
+  Disruption_Web = 17;
+  Corrosive_Acid = 18;
+  Mind_Control = 19;
+  Feedback = 20;
+  Optical_Flare = 21;
+  Maelstrom = 22;
+  Air_Splash = 24;
+  ExplosionUnknown = 25;
+}
+
+
+
+message WeaponTypeData {
+  required int32 id = 1;
+  required string name = 2;
+  required TechType tech = 3;
+  required UnitType whatUses = 4;
+  required int32 damageAmount = 5;
+  required int32 damageBonus = 6;
+  required int32 damageCooldown = 7;
+  required int32 damageFactor = 8;
+  required UpgradeType upgradeType = 9;
+  required DamageType damageType = 10;
+  required ExplosionType explosionType = 11;
+  required int32 minRange = 12;
+  required int32 maxRange = 13;
+  required int32 innerSplashRadius = 14;
+  required int32 medianSplashRadius = 15;
+  required int32 outerSplashRadius = 16;
+  required bool targetsAir = 17;
+  required bool targetsGround = 18;
+  required bool targetsMechanical = 19;
+  required bool targetsOrganic = 20;
+  required bool targetsNonBuilding = 21;
+  required bool targetsNonRobotic = 22;
+  required bool targetsTerrain = 23;
+  required bool targetsOrgOrMech = 24;
+  required bool targetsOwn = 25;
+}
+
+
+
+
+message StaticGameData {
+  repeated UnitId staticMinerals = 1;
+  repeated UnitId staticGeysers = 2;
+  repeated UnitId staticNeutralUnits = 3;
+
+  required int32 mapWidth = 4;
+  required int32 mapHeight = 5;
+  required string mapFilename = 6;
+  required string mapName = 7;
+  required string mapHash = 8;
+
+  // bitmasks; increment y's before x's.
+  repeated fixed32 walkable = 9;
+  repeated fixed32 buildable = 10;
+  
+  // not a bit mask.
+  repeated int32 groundHeight = 17;
+
+  repeated UnitTypeData unitTypes = 11;
+  repeated WeaponTypeData weapons = 12;
+  repeated UpgradeTypeData upgrades = 13;
+  repeated TechTypeData techs = 14;
+  repeated Color colors = 15;
+  repeated RaceData races = 18;
+
+  repeated TilePosition startLocations = 16;
+}
+
+enum BulletType {
+    Melee = 0;
+    Fusion_Cutter_Hit = 141;
+    Gauss_Rifle_Hit = 142;
+    C_10_Canister_Rifle_Hit = 143;
+    Gemini_Missiles = 144;
+    Fragmentation_Grenade = 145;
+    Longbolt_Missile = 146;
+    ATS_ATA_Laser_Battery = 148;
+    Burst_Lasers = 149;
+    Arclite_Shock_Cannon_Hit = 150;
+    EMP_Missile = 151;
+    Dual_Photon_Blasters_Hit = 152;
+    Particle_Beam_Hit = 153;
+    Anti_Matter_Missile = 154;
+    Pulse_Cannon = 155;
+    Psionic_Shockwave_Hit = 156;
+    Psionic_Storm = 157;
+    Yamato_Gun_Bullet = 158;
+    Phase_Disruptor = 159;
+    STA_STS_Cannon_Overlay = 160;
+    Sunken_Colony_Tentacle = 161;
+    Acid_Spore = 163;
+    Glave_Wurm = 165;
+    Seeker_Spores = 166;
+    Queen_Spell_Carrier = 167;
+    Plague_Cloud = 168;
+    ConsumeBullet = 169;
+    Needle_Spine_Hit = 171;
+    Invisible = 172;
+    Optical_Flare_Grenade = 201;
+    Halo_Rockets = 202;
+    Subterranean_Spines = 203;
+    Corrosive_Acid_Shot = 204;
+    Neutron_Flare = 206;
+    NoneBullet = 209;
+    UnknownBullet = 210;
+}
+
+message Bullet {
+  required int32 id = 1; 
+  optional int32 player = 2;
+  required BulletType type = 3;
+  optional UnitId source  = 4;
+  required Position position = 5;
+  required double angle  = 6;
+  required double velocityX  = 7;
+  required double velocityY = 8;
+  optional UnitId target  = 9;
+  required Position targetPosition = 10;
+  required int32 removeTimer = 11;
+  required bool exists = 12;
+  required bool isVisible = 13;
+}
