@@ -5,11 +5,14 @@
                  [org.clojure/tools.logging "0.2.6"]
                  [ch.qos.logback/logback-classic "1.1.2"]
                  [org.slf4j/slf4j-api "1.7.7"]
-                 [com.google.protobuf/protobuf-java "2.5.0"]]
+                 [com.google.protobuf/protobuf-java "2.5.0"]
+                 [org.flatland/protobuf "0.7.1"]]
   :source-paths ["src/clj"]
   :java-source-paths ["src/jvm"]
   :resource-paths ["resources"]
   :test-paths ["test/clj"]
+  :plugins [[lein-protobuf "0.4.1"]]
+  :proto-path "resources/proto"
   :warn-on-reflection true
   ;:aot :all ;[com.cyou.gmonitor.CentralMain]
   ;:main com.cyou.gmonitor.centralmain
