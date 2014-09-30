@@ -1,4 +1,4 @@
-(ns lab.dexter.noah.starcraft.models
+(ns lab.dexter.noah.starcraft.models.unit
   (:use [flatland.protobuf.core :only [protodef protobuf protobuf-dump protobuf-load]])
   (:import (org.bwapi.proxy.messages GameMessages$Unit)))
 
