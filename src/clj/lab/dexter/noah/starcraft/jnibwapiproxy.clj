@@ -40,11 +40,17 @@
                         map-width map-height)
             ground-height (bulit-map (fn [x y]
                                       (.. api .getMap (.getGroundHeight (Position. x y))))
-                            (* map-width 4) (* map-height 4))]
+                            (* map-width 4) (* map-height 4))
+            start-locations (.. api .getMap .getStartLocations)]
         (println "1")))
 
     (^void matchFrame [this]
-      (println "2"))
+      (let [players-list (.getPlayers api)
+            self (.getSelf api)
+            all-units (.getAllUnits api)
+            units-on-tile]
+
+        (println "2")))
 
     (^void matchEnd [this ^boolean winner]
       (println "3"))

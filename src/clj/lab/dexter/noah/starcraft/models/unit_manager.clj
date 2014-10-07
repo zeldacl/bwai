@@ -1,1 +1,1 @@
-(ns lab.dexter.noah.starcraft.models)
+(ns lab.dexter.noah.starcraft.models.unit-manager)
