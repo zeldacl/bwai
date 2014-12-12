@@ -1,7 +1,6 @@
 (ns lab.dexter.noah.starcraft.jnibwapiproxy
-  (:import [jnibwapi JNIBWAPI BWAPIEventListener Position Unit]
-           [jnibwapi.types.UnitType$UnitTypes]
-           [jnibwapi.types.UnitType]))
+  (:import [jnibwapi JNIBWAPI BWAPIEventListener Position Unit Map]
+           (jnibwapi.types UnitType UnitType$UnitTypes)))
 
 ;(def bwapi [])
 
@@ -17,30 +16,31 @@
     (^void matchStart [this]
       (let [static-neutral-units (set (.getStaticNeutralUnits api))
             static-minerals (filter #(.. % .getType .isMineralField) static-neutral-units)
-            static-geysers (filter #(= (.getType %) jnibwapi.types.UnitType$UnitTypes/Resource_Vespene_Geyser)
-                             static-neutral-units)
-            map-width (.getMapWidth api)
-            map-height (.getMapHeight api)
-            map-filename (.getMapFilename api)
-            map-name (.getMapName api)
-            map-hash (.getMapHash api)
-            bulit-map (fn [update-fn w h ]
+            static-geysers (filter #(= (.getType %) UnitType$UnitTypes/Resource_Vespene_Geyser)
+                                   static-neutral-units)
+            jni-map (.getMap api)
+            map-width (.getWidth jni-map)
+            map-height (.getHeight jni-map)
+            map-filename (.getFileName jni-map)
+            map-name (.getName jni-map)
+            map-hash (.getHash jni-map)
+            bulit-map (fn [update-fn w h]
                         (let [bw-map (vec (repeat w (vec (repeat h nil))))]
                           (reduce
                             (fn [new-map [x y]]
                               (let [new-status (update-fn x y)]
                                 (assoc-in new-map [x y] new-status)))
                             bw-map (for [x (range w) y (range h)] [x y]))))
-                            ;???(for [x (range h) y (range w)] [x y]))))
+            ;???(for [x (range h) y (range w)] [x y]))))
             walkable (bulit-map (fn [x y]
                                   (.. api .getMap (.isWalkable (Position. x y))))
-                       (* map-width 4) (* map-height 4))
+                                (* map-width 4) (* map-height 4))
             buildable (bulit-map (fn [x y]
                                    (.. api .getMap (.isBuildable (Position. x y))))
-                        map-width map-height)
+                                 map-width map-height)
             ground-height (bulit-map (fn [x y]
-                                      (.. api .getMap (.getGroundHeight (Position. x y))))
-                            (* map-width 4) (* map-height 4))
+                                       (.. api .getMap (.getGroundHeight (Position. x y))))
+                                     (* map-width 4) (* map-height 4))
             start-locations (.. api .getMap .getStartLocations)]
         (println "1")))
 
@@ -109,6 +109,6 @@
 (defn launch-server! []
   (let [listener (listener-handler)
         bwapi (JNIBWAPI. listener true)]
-    (bind-api! api)
+    (bind-api! bwapi)
     (.start bwapi))
   )
