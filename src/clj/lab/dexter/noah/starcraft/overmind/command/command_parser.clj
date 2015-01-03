@@ -1,7 +1,7 @@
-(ns lab.dexter.noah.starcraft.overmind.strategy.strategy
+(ns lab.dexter.noah.starcraft.overmind.command.command-parser
   (:use [lab.dexter.noah.starcraft.utils.akka :only [actor dispatch-on !]]))
 
-(def strategy
+(def command-parser
   (actor
     (onReceive [{t :type v :v}]
                (dispatch-on t
